@@ -1,0 +1,19 @@
+{
+    "name": "com.vrsuya.materialoptimizer.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75c1da3e60adb8b4e808ca4aa021acc2",
+        "GUID:5718fb738711cd34ea54e9553040911d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
