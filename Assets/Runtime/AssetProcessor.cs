@@ -33,8 +33,8 @@ namespace com.vrsuya.materialoptimizer {
 		/// <returns>아바타에 포함된 머테리얼 어레이</returns>
 		public Material[] GetAvatarMaterials(GameObject TargetGameObject) {
 			Material[] AvatarMaterials = new Material[0];
-			SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers = TargetGameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
-			MeshRenderer[] AvatarMeshRenderers = TargetGameObject.GetComponentsInChildren<MeshRenderer>();
+			SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers = TargetGameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+			MeshRenderer[] AvatarMeshRenderers = TargetGameObject.GetComponentsInChildren<MeshRenderer>(true);
 			if (AvatarSkinnedMeshRenderers.Length > 0) {
 				AvatarMaterials = AvatarMaterials.Concat(AvatarSkinnedMeshRenderers.SelectMany(AvatarSkinnedMeshRenderer => AvatarSkinnedMeshRenderer.sharedMaterials).ToArray()).ToArray();
 			}
