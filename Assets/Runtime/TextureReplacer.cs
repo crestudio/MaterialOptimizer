@@ -19,14 +19,29 @@ namespace com.vrsuya.materialoptimizer {
 
 		[Serializable]
 		public struct TextureExpression {
+			public bool ShowDetails;
 			public Texture2D BeforeTexture;
 			public Texture2D AfterTexture;
+			public MaterialDetail[] OriginMaterial;
 
-			public TextureExpression(Texture2D ExistTexture, Texture2D NewTexture) {
+			public TextureExpression(bool ShowDetail, Texture2D ExistTexture, Texture2D NewTexture, MaterialDetail[] ExistMaterials) {
+				ShowDetails = ShowDetail;
 				BeforeTexture = ExistTexture;
 				AfterTexture = NewTexture;
+				OriginMaterial = ExistMaterials;
 			}
 		};
+
+		[Serializable]
+		public struct MaterialDetail {
+			public Material OriginMaterial;
+			public string[] PropertyName;
+
+			public MaterialDetail(Material ExistMaterial, string[] ExsitPropertyName) {
+				OriginMaterial = ExistMaterial;
+				PropertyName = ExsitPropertyName;
+			}
+		}
 
 		[SerializeField]
 		public List<TextureExpression> AvatarTextureList = new List<TextureExpression>();
@@ -68,12 +83,34 @@ namespace com.vrsuya.materialoptimizer {
 		/// <returns>GameObject가 사용하고 있는 Texture2D 리스트</returns>
 		private List<TextureExpression> GetAvatarTextures(GameObject TargetGameObject) {
 			AssetProcessor AssetProcessorInstance = new AssetProcessor();
-			Texture2D[] newAvatarTexture2Ds = AssetProcessorInstance.AddAvatarTextures(TargetGameObject);
-			List<TextureExpression> newAvatarTextureList = new List<TextureExpression>();
-			for (int Index = 0; Index < newAvatarTexture2Ds.Length;	Index++) {
-				newAvatarTextureList.Add(new TextureExpression(newAvatarTexture2Ds[Index], newAvatarTexture2Ds[Index]));
+			TextureExpression[] AvatarTextureExpressions = AssetProcessorInstance.AddAvatarTextureDetails(TargetGameObject);
+			List<TextureExpression> newAvatarTextureExpressions = new List<TextureExpression>();
+			Texture2D[] ExistTexture = AvatarTextureExpressions.Select(AvatarTexture => AvatarTexture.BeforeTexture).Distinct().ToArray();
+			for (int TextureIndex = 0; TextureIndex < ExistTexture.Length; TextureIndex++) {
+				MaterialDetail[] TextureMaterials = AvatarTextureExpressions
+					.Where(AvatarTexture => AvatarTexture.BeforeTexture == ExistTexture[TextureIndex])
+					.SelectMany(AvatarTexture => AvatarTexture.OriginMaterial).ToArray();
+				for (int MaterialIndex = 0; MaterialIndex < TextureMaterials.Length; MaterialIndex++) {
+					if (newAvatarTextureExpressions.Exists(newAvatarTexture => newAvatarTexture.BeforeTexture == ExistTexture[TextureIndex])) {
+						TextureExpression OldAvatarTextureExpression = newAvatarTextureExpressions.Find(newAvatarTexture => newAvatarTexture.BeforeTexture == ExistTexture[TextureIndex]);
+						List<MaterialDetail> newMaterialDetail = OldAvatarTextureExpression.OriginMaterial.Concat(new MaterialDetail[] { TextureMaterials[MaterialIndex] }).ToList();
+						newMaterialDetail.Sort((a, b) => string.Compare(a.OriginMaterial.name, b.OriginMaterial.name, StringComparison.Ordinal));
+						TextureExpression NewAvatarTextureExpression = new TextureExpression() {
+							ShowDetails = OldAvatarTextureExpression.ShowDetails,
+							BeforeTexture = OldAvatarTextureExpression.BeforeTexture,
+							AfterTexture = OldAvatarTextureExpression.AfterTexture,
+							OriginMaterial = newMaterialDetail.ToArray()
+						};
+						
+						newAvatarTextureExpressions.Remove(OldAvatarTextureExpression);
+						newAvatarTextureExpressions.Add(NewAvatarTextureExpression);
+					} else {
+						newAvatarTextureExpressions.Add(new TextureExpression(false, ExistTexture[TextureIndex], ExistTexture[TextureIndex], new MaterialDetail[] { TextureMaterials[MaterialIndex] }));
+					}
+				}
 			}
-			return newAvatarTextureList;
+			newAvatarTextureExpressions.Sort((a, b) => string.Compare(a.BeforeTexture.name, b.BeforeTexture.name, StringComparison.Ordinal));
+			return newAvatarTextureExpressions;
 		}
 
 		/// <summary>주어진 GameObject가 사용하고 있는 머테리얼를 추출합니다.</summary>
