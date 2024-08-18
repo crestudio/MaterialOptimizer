@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using UnityEditor;
@@ -56,8 +57,9 @@ namespace com.vrsuya.materialoptimizer {
 			if (AvatarMeshRenderers.Length > 0) {
 				AvatarMaterials = AvatarMaterials.Concat(AvatarMeshRenderers.SelectMany(AvatarMeshRenderer => AvatarMeshRenderer.sharedMaterials).ToArray()).ToArray();
 			}
-			AvatarMaterials = AvatarMaterials.Distinct().ToArray();
-			return AvatarMaterials;
+			List<Material> newAvatarMaterials = AvatarMaterials.Distinct().ToList();
+			newAvatarMaterials.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
+			return newAvatarMaterials.ToArray();
 		}
 
 		/// <summary>주어진 머테리얼에서 텍스쳐들을 가져와서 반환합니다.</summary>
