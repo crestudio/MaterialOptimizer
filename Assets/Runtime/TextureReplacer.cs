@@ -161,7 +161,7 @@ namespace com.vrsuya.materialoptimizer {
 					}
 				}
 			}
-			Debug.Log("[Texture Replacer] 주어진 머테리얼에서 텍스쳐를 총 " + ChangedCount + "건을 교체하였습니다!");
+			Debug.Log("[Texture Replacer] " + ChangedCount + " textures have been replaced");
 			return;
 		}
 	}
