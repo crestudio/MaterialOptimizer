@@ -63,6 +63,11 @@ namespace com.vrsuya.materialoptimizer {
 			if (AnimationMaterials.Length > 0) {
 				AvatarMaterials.AddRange(AnimationMaterials);
 			}
+			for (int Index = AvatarMaterials.Count - 1; Index >= 0; Index--) {
+				if (!AvatarMaterials[Index]) {
+					AvatarMaterials.Remove(AvatarMaterials[Index]);
+				}
+			}
 			AvatarMaterials = AvatarMaterials.Distinct().ToList();
 			AvatarMaterials.Sort((a, b) => string.Compare(a.name, b.name, StringComparison.Ordinal));
 			return AvatarMaterials.ToArray();
