@@ -26,12 +26,6 @@ VRChat 아바타 머테리얼 최적화 프로그램
 
 ---
 
-## 작동조건
-
-- [x] 없음
-
----
-
 ## Contact
 
 - Twitter : https://twitter.com/VRSuya
