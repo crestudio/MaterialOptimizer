@@ -14,7 +14,7 @@ using UnityEngine;
 namespace com.vrsuya.materialoptimizer {
 
 	[ExecuteInEditMode]
-	[AddComponentMenu("VRSuya Material Template")]
+	[AddComponentMenu("VRSuya/VRSuya Material Template")]
 	public class MaterialTemplate : MonoBehaviour {
 
 		public GameObject TargetGameObject = null;

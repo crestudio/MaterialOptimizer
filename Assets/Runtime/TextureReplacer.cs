@@ -14,7 +14,7 @@ using UnityEngine;
 namespace com.vrsuya.materialoptimizer {
 
 	[ExecuteInEditMode]
-	[AddComponentMenu("VRSuya Texture Replacer")]
+	[AddComponentMenu("VRSuya/VRSuya Texture Replacer")]
 	public class TextureReplacer : MonoBehaviour {
 
 		[Serializable]
