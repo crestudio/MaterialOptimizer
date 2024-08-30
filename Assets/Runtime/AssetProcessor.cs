@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+ï»¿#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace com.vrsuya.materialoptimizer {
 	[AddComponentMenu("")]
 	public class AssetProcessor {
 
-		/// <summary>ÁÖ¾îÁø ¾Æ¹ÙÅ¸¿¡¼­ ÅØ½ºÃÄµéÀ» °¡Á®¿É´Ï´Ù.</summary>
+		/// <summary>ì£¼ì–´ì§„ ì•„ë°”íƒ€ì—ì„œ í…ìŠ¤ì³ë“¤ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.</summary>
 		public Texture2D[] AddAvatarTextures(GameObject TargetGameObject) {
 			Texture2D[] newAvatarTextures = new Texture2D[0];
 			Material[] AvatarMaterials = GetAvatarMaterials(TargetGameObject);
@@ -34,7 +34,7 @@ namespace com.vrsuya.materialoptimizer {
 			return newAvatarTextures;
 		}
 
-		/// <summary>ÁÖ¾îÁø ¾Æ¹ÙÅ¸¿¡¼­ ÅØ½ºÃÄ µğÅ×ÀÏµéÀ» °¡Á®¿É´Ï´Ù.</summary>
+		/// <summary>ì£¼ì–´ì§„ ì•„ë°”íƒ€ì—ì„œ í…ìŠ¤ì³ ë””í…Œì¼ë“¤ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.</summary>
 		public TextureExpression[] AddAvatarTextureDetails(GameObject TargetGameObject) {
 			TextureExpression[] newAvatarTextureExpressions = new TextureExpression[0];
 			Material[] AvatarMaterials = GetAvatarMaterials(TargetGameObject);
@@ -47,8 +47,8 @@ namespace com.vrsuya.materialoptimizer {
 			return newAvatarTextureExpressions;
 		}
 
-		/// <summary>ÁÖ¾îÁø ¾Æ¹ÙÅ¸¿¡¼­ ¸ÓÅ×¸®¾óµéÀ» °¡Á®¿Í¼­ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>¾Æ¹ÙÅ¸¿¡ Æ÷ÇÔµÈ ¸ÓÅ×¸®¾ó ¾î·¹ÀÌ</returns>
+		/// <summary>ì£¼ì–´ì§„ ì•„ë°”íƒ€ì—ì„œ ë¨¸í…Œë¦¬ì–¼ë“¤ì„ ê°€ì ¸ì™€ì„œ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>ì•„ë°”íƒ€ì— í¬í•¨ëœ ë¨¸í…Œë¦¬ì–¼ ì–´ë ˆì´</returns>
 		public Material[] GetAvatarMaterials(GameObject TargetGameObject) {
 			List<Material> AvatarMaterials = new List<Material>();
 			SkinnedMeshRenderer[] AvatarSkinnedMeshRenderers = TargetGameObject.GetComponentsInChildren<SkinnedMeshRenderer>(true);
@@ -73,8 +73,8 @@ namespace com.vrsuya.materialoptimizer {
 			return AvatarMaterials.ToArray();
 		}
 
-		/// <summary>ÁÖ¾îÁø ¾Æ¹ÙÅ¸¿¡¼­ ¾Ö´Ï¸ŞÀÌ¼Ç¿¡¼­ »ç¿ëµÈ ¸ÓÅ×¸®¾óµéÀ» °¡Á®¿Í¼­ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>¾Æ¹ÙÅ¸¿¡ Æ÷ÇÔµÈ ¾Ö´Ï¸ŞÀÌ¼Ç ¸ÓÅ×¸®¾ó ¾î·¹ÀÌ</returns>
+		/// <summary>ì£¼ì–´ì§„ ì•„ë°”íƒ€ì—ì„œ ì• ë‹ˆë©”ì´ì…˜ì—ì„œ ì‚¬ìš©ëœ ë¨¸í…Œë¦¬ì–¼ë“¤ì„ ê°€ì ¸ì™€ì„œ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>ì•„ë°”íƒ€ì— í¬í•¨ëœ ì• ë‹ˆë©”ì´ì…˜ ë¨¸í…Œë¦¬ì–¼ ì–´ë ˆì´</returns>
 		private Material[] GetAnimationMaterials(GameObject TargetGameObject) {
 			List<Material> AnimationMaterials = new List<Material>();
 			TargetGameObject.TryGetComponent(typeof(VRCAvatarDescriptor), out Component AvatarDescriptor);
@@ -102,8 +102,8 @@ namespace com.vrsuya.materialoptimizer {
 			return AnimationMaterials.ToArray();
 		}
 
-		/// <summary>¸ğµç FXLayerÀÇ AnimationClip ¾î·¹ÀÌ¸¦ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>FXLayerÀÇ AnimationClip ¾î·¹ÀÌ</returns>
+		/// <summary>ëª¨ë“  FXLayerì˜ AnimationClip ì–´ë ˆì´ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>FXLayerì˜ AnimationClip ì–´ë ˆì´</returns>
 		private AnimationClip[] GetFXAnimationClips(AnimatorController TargetAnimatorController) {
 			List<AnimatorStateMachine> RootStateMachines = TargetAnimatorController.layers.Select(AnimationLayer => AnimationLayer.stateMachine).ToList();
 			List<AnimatorStateMachine> AllStateMachines = new List<AnimatorStateMachine>();
@@ -126,8 +126,8 @@ namespace com.vrsuya.materialoptimizer {
 			return AllAnimationClips.ToArray();
 		}
 
-		/// <summary>¸ğµç State ¾î·¹ÀÌ¸¦ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>State ¾î·¹ÀÌ</returns>
+		/// <summary>ëª¨ë“  State ì–´ë ˆì´ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>State ì–´ë ˆì´</returns>
 		private AnimatorState[] GetAllStates(AnimatorStateMachine TargetStateMachine) {
 			AnimatorState[] States = TargetStateMachine.states.Select(ExistChildState => ExistChildState.state).ToArray();
 			if (TargetStateMachine.stateMachines.Length > 0) {
@@ -138,8 +138,8 @@ namespace com.vrsuya.materialoptimizer {
 			return States;
 		}
 
-		/// <summary>¸ğµç StateMachine ¾î·¹ÀÌ¸¦ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>StateMachine ¾î·¹ÀÌ</returns>
+		/// <summary>ëª¨ë“  StateMachine ì–´ë ˆì´ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>StateMachine ì–´ë ˆì´</returns>
 		private AnimatorStateMachine[] GetAllStateMachines(AnimatorStateMachine TargetStateMachine) {
 			AnimatorStateMachine[] StateMachines = new AnimatorStateMachine[] { TargetStateMachine };
 			if (TargetStateMachine.stateMachines.Length > 0) {
@@ -150,8 +150,8 @@ namespace com.vrsuya.materialoptimizer {
 			return StateMachines;
 		}
 
-		/// <summary>¸ğµç AnimationClip ¾î·¹ÀÌ¸¦ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>AnimationClip ¾î·¹ÀÌ</returns>
+		/// <summary>ëª¨ë“  AnimationClip ì–´ë ˆì´ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>AnimationClip ì–´ë ˆì´</returns>
 		private AnimationClip[] GetAnimationClips(Motion TargetMotion) {
 			AnimationClip[] MotionAnimationClips = new AnimationClip[0];
 			if (TargetMotion is AnimationClip) {
@@ -164,8 +164,8 @@ namespace com.vrsuya.materialoptimizer {
 			return MotionAnimationClips;
 		}
 
-		/// <summary>ÁÖ¾îÁø ¸ÓÅ×¸®¾ó¿¡¼­ ÅØ½ºÃÄµéÀ» °¡Á®¿Í¼­ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>¸ÓÅ×¸®¾ó¿¡ Æ÷ÇÔµÈ ÅØ½ºÃÄ ¾î·¹ÀÌ</returns>
+		/// <summary>ì£¼ì–´ì§„ ë¨¸í…Œë¦¬ì–¼ì—ì„œ í…ìŠ¤ì³ë“¤ì„ ê°€ì ¸ì™€ì„œ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>ë¨¸í…Œë¦¬ì–¼ì— í¬í•¨ëœ í…ìŠ¤ì³ ì–´ë ˆì´</returns>
 		public Texture2D[] GetMaterialTextures(Material TargetMaterial) {
 			Texture2D[] MaterialTexture2Ds = new Texture2D[0];
 			if (TargetMaterial) {
@@ -185,8 +185,8 @@ namespace com.vrsuya.materialoptimizer {
 			return MaterialTexture2Ds;
 		}
 
-		/// <summary>ÁÖ¾îÁø ¸ÓÅ×¸®¾ó¿¡¼­ ÅØ½ºÃÄµéÀ» °¡Á®¿Í¼­ ¹İÈ¯ÇÕ´Ï´Ù.</summary>
-		/// <returns>¸ÓÅ×¸®¾ó¿¡ Æ÷ÇÔµÈ ÅØ½ºÃÄ ¾î·¹ÀÌ</returns>
+		/// <summary>ì£¼ì–´ì§„ ë¨¸í…Œë¦¬ì–¼ì—ì„œ í…ìŠ¤ì³ë“¤ì„ ê°€ì ¸ì™€ì„œ ë°˜í™˜í•©ë‹ˆë‹¤.</summary>
+		/// <returns>ë¨¸í…Œë¦¬ì–¼ì— í¬í•¨ëœ í…ìŠ¤ì³ ì–´ë ˆì´</returns>
 		public TextureExpression[] GetMaterialTextureDetails(Material TargetMaterial) {
 			TextureExpression[] MaterialTextureExpressions = new TextureExpression[0];
 			if (TargetMaterial) {
